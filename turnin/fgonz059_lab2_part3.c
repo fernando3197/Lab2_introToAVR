@@ -26,7 +26,7 @@ int main(void) {
 		tmpC = tmpA && 0x04 ? (tmpC | 0x04) : (tmpC & 0x8B);
 		tmpC = tmpA && 0x08 ? (tmpC | 0x08) : (tmpC & 0x87);
 		
-		PORTC = (tmpC == (tmpC & 0x0F)) ? PORTC | 0x80 : PORTC & 0x0F; 
+		PORTC = (tmpC == (tmpC & 0x0F)) ? PINC | 0x80 : PINC & 0x0F; 
 	}
 	return 0;
 }
