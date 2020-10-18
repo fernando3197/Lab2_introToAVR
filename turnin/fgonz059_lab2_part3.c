@@ -15,18 +15,19 @@
 int main(void) {
 	DDRA = 0x00; PORTA = 0xFF; // Configure port A's 8 pins as inputs
 	DDRC = 0xFF; PORTC = 0x00; // Configure port B's 8 pins as outputs, initialize
-		
+	unsigned char cntavail = 0x00;
 	unsigned char tmpC = 0x00;
 	unsigned char tmpA = 0x00;		   // to 0s
 	while (1) {
+		cntavail = 0x00;
 		tmpA = (~PINA) & 0x0F;
+		if (tmpA & 0x01) { cntavail = cntavail + 1; }
+		if (tmpA & 0x02) { cntavail = cntavail + 1; }
+		if (tmpA & 0x04) { cntavail = cntavail + 1; }
+		if (tmpA & 0x08) { cntavail = cntavail + 1; }
 		
-		tmpC = tmpA && 0x01 ? (tmpC | 0x01) : (tmpC & 0x8E);
-		tmpC = tmpA && 0x02 ? (tmpC | 0x02) : (tmpC & 0x8D);
-		tmpC = tmpA && 0x04 ? (tmpC | 0x04) : (tmpC & 0x8B);
-		tmpC = tmpA && 0x08 ? (tmpC | 0x08) : (tmpC & 0x87);
-		
-		PORTC = (tmpC == (tmpC & 0x0F)) ? PINC | 0x80 : PINC & 0x0F; 
+		tmpC = cntavail;
+		if (tmpA & 0x0F){ tmpC = tmpC + 0x80; }	
 	}
 	return 0;
 }
