@@ -19,9 +19,13 @@ int main(void) {
 	unsigned char cntavail = 0x00;
 	unsigned char tmpA = 0x00;		   // to 0s
 	while (1) {
+		cntavail = 0x00;
 		tmpA = (~PINA) & 0x0F;
-		cntavail = (tmpA & 0x01) + (tmpA & 0x02) + (tmpA & 0x04) + (tmpA & 0x08);
-		
+		cntavail = tmpA & 0x01 ? cntavail++ : cntavail; 
+		cntavail = tmpA & 0x02 ? cntavail++ : cntavail;
+		cntavail = tmpA & 0x04 ? cntavail++ : cntavail;
+		cntavail = tmpA & 0x08 ? cntavail++ : cntavail;
+
 		PORTC = cntavail; 
 	}
 	return 0;
