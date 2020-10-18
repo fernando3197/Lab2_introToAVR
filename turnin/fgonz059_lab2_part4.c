@@ -32,7 +32,7 @@ int main(void) {
 		tempWeight = tempA + tempB + tempC;
 		
 		if (tempWeight > 140) { tempD = tempD + 0x01; }
-		if ( (tempA - tempC) > 80 ) { tempD = tempD + 0x02; }
+		if ( ((tempA - tempC) > 80) || ((tempC - tempA) > 80 )) { tempD = tempD + 0x02; }
 		tempD = tempD | ( (tempWeight & 0xF0) >> 2) ;	
 		
 		PORTD = tempD;
