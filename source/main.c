@@ -22,9 +22,9 @@ int main(void) {
 		tmpA = PINA & 0x03;
 		
 		if (tmpA == 0x01){
-			tmpB = tmpB | 0x01;
+			tmpB = tmpA;
 		} else {
-			tmpB = tmpB & 0xFE;
+			tmpB = tmpB & 0x00; 
 		}
 		
 		PORTB = tmpB;
