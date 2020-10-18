@@ -19,7 +19,7 @@ int main(void) {
 	unsigned char tmpC = 0x00;
 	unsigned char tmpA = 0x00;		   // to 0s
 	while (1) {
-		tmpA = PINA & 0x8F;
+		tmpA = (~PINA) & 0x0F;
 		
 		tmpC = tmpA && 0x01 ? (tmpC | 0x01) : (tmpC & 0x8E);
 		tmpC = tmpA && 0x02 ? (tmpC | 0x02) : (tmpC & 0x8D);
