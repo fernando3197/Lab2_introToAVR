@@ -27,7 +27,7 @@ int main(void) {
 		if (tmpA & 0x08) { cntavail = cntavail + 1; }
 		
 		tmpC = cntavail;
-		if (tmpA & 0x0F){ tmpC = tmpC + 0x80; }	
+		if (tmpA == 0x0F){ tmpC = tmpC + 0x80; }	
 		
 		PORTC = tmpC;
 	}
