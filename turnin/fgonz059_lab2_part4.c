@@ -28,11 +28,13 @@ int main(void) {
 		tempA = PINA;
 		tempB = PINB;
 		tempC = PINC;
+		tempD = 0x00;
 		tempWeight = tempA + tempB + tempC;
-			
-		tempD = tempWeight > 140 ? tempD | 0x01 : tempD & 0xFE;
-		tempD = (tempA - tempC) > 80 ? tempD | 0x02 : tempD & 0xFD;
-		tempD = (tempD & 0x03) | (tempWeight & 0xFC);	
+		
+		if (tempWeight > 140) { tempD = tempD + 0x01; }
+		if ( (tempA - tempC) > 80 ) { tempD = tempD + 0x02; }
+		tempD = tempD | ( (tempWeight & 0xF0) >> 2) ;	
+		
 		PORTD = tempD;
 	}
 	return 0;
