@@ -13,20 +13,27 @@
 #endif
 
 int main(void) {
-	DDRA = 0x00; PORTA = 0xFF; // Configure port A's 8 pins as inputs
-	DDRC = 0xFF; PORTC = 0x00; // Configure port B's 8 pins as outputs, initialize
+	DDRA = 0x00; PORTA = 0xFF;
+	DDRB = 0x00; PORTB = 0xFF;
+	DDRC = 0X00; PORTC = 0xFF; // Configure port A's 8 pins as inputs
+	DDRD = 0xFF; PORTD = 0x00; // Configure port B's 8 pins as outputs, initialize
 		
-	unsigned char tmpC = 0x00;
-	unsigned char tmpA = 0x00;		   // to 0s
+	unsigned char tempWeight = 0x00;
+	unsigned char tempA = 0x00;
+	unsigned char tempB = 0x00;
+	unsigned char tempC = 0x00;
+	unsigned char tempD = 0x00;
+	
 	while (1) {
-		tmpA = PINA & 0x8F;
-		
-		tmpC = tmpA && 0x01 ? (tmpC | 0x01) : (tmpC & 0x8E);
-		tmpC = tmpA && 0x02 ? (tmpC | 0x02) : (tmpC & 0x8D);
-		tmpC = tmpA && 0x04 ? (tmpC | 0x04) : (tmpC & 0x8B);
-		tmpC = tmpA && 0x08 ? (tmpC | 0x08) : (tmpC & 0x87);
-		
-		PORTC = (tmpC == (tmpC & 0x0F)) ? PORTC | 0x80 : PORTC & 0x0F; 
+		tempA = PINA;
+		tempB = PINB;
+		tempC = PINC;
+		tempWeight = tempA + tempB + tempC;
+			
+		tempD = tempWeight > 140 ? tempD | 0x01 : tempD & 0xFE;
+		tempD = (tempA - tempC) > 80 ? tempD | 0x02 : tempD & 0xFD;
+		tempD = (tempD & 0x03) | (tempWeight & 0xFC);	
+		PORTD = tempD;
 	}
 	return 0;
 }
