@@ -21,10 +21,11 @@ int main(void) {
 	while (1) {
 		cntavail = 0x00;
 		tmpA = (~PINA) & 0x0F;
-		cntavail = tmpA & 0x01 ? cntavail++ : cntavail; 
-		cntavail = tmpA & 0x02 ? cntavail++ : cntavail;
-		cntavail = tmpA & 0x04 ? cntavail++ : cntavail;
-		cntavail = tmpA & 0x08 ? cntavail++ : cntavail;
+	
+		if (tmpA & 0x01){ cntavail = cntavail + 1; }
+		if (tmpA & 0x02){ cntavail = cntavail + 1; }
+		if (tmpA & 0x04){ cntavail = cntavail + 1; }
+		if (tmpA & 0x08){ cntavail = cntavail + 1; }
 
 		PORTC = cntavail; 
 	}
